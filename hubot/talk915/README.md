@@ -1,3 +1,6 @@
+
+# run with docker
+
 ```
 docker run -it --name talk915 --rm \
 -e HUBOT_NAME="hubot" \
@@ -10,6 +13,30 @@ docker run -it --name talk915 --rm \
 -e HUBOT_GNTP_PASSWORD=$HUBOT_GNTP_PASSWORD \
 -e HUBOT_EMAIL_USERNAME=$HUBOT_EMAIL_USERNAME \
 -e HUBOT_EMAIL_PASSWORD=$HUBOT_EMAIL_PASSWORD \
--e HUBOT_EMAIL_TO:$HUBOT_EMAIL_TO \
+-e HUBOT_EMAIL_TO=$HUBOT_EMAIL_TO \
 xjimmyshcn/talk915 start.sh talk915
 ```
+
+# run with hyper
+
+```
+hyper run -d --name talk915 \
+--restart=always --protection=true \
+-e HUBOT_NAME="hubot" \
+-e EXTERNAL_SCRIPTS="hubot-help" \
+-e HUBOT_EXT_CMD_BIN=$HUBOT_EXT_CMD_BIN \
+-e HUBOT_EXT_CMD_ARG=$HUBOT_EXT_CMD_ARG \
+-e HUBOT_EXT_CMD_OPT=$HUBOT_EXT_CMD_OPT \
+-e HUBOT_CHECK_INTERVAL=$HUBOT_CHECK_INTERVAL \
+-e HUBOT_GNTP_SERVER=$HUBOT_GNTP_SERVER \
+-e HUBOT_GNTP_PASSWORD=$HUBOT_GNTP_PASSWORD \
+-e HUBOT_EMAIL_USERNAME=$HUBOT_EMAIL_USERNAME \
+-e HUBOT_EMAIL_PASSWORD=$HUBOT_EMAIL_PASSWORD \
+-e HUBOT_EMAIL_TO=$HUBOT_EMAIL_TO \
+xjimmyshcn/talk915 sleep infinity
+
+hyper exec -it talk915 bash
+screen -S talk915 -L -d -m bash -c "start.sh talk915"
+tail -f screenlog.0
+```
+
