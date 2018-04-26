@@ -7,7 +7,7 @@ ENV WORK_DIR=/home/hubot
 ###################################################
 # Install dependency package                      #
 ###################################################
-RUN npm install -g hubot coffee-script yo generator-hubot
+RUN npm install -g hubot coffeescript yo generator-hubot
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -63,9 +63,7 @@ RUN yo hubot --owner="${HUBOT_OWNER}" --name="${HUBOT_NAME}" --description="${HU
 		npm install hubot-help node-growl nodemailer --save
 
 ENV EXTERNAL_SCRIPTS "hubot-help"
-CMD node -e "console.log(JSON.stringify('$EXTERNAL_SCRIPTS'.split(',')))" > external-scripts.json && \
-	npm install $(node -e "console.log('$EXTERNAL_SCRIPTS'.split(',').join(' '))") && \
-	bin/hubot -n $HUBOT_NAME
+CMD cmd.sh
 
 
 ######################################################
